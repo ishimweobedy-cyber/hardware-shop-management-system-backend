@@ -4,7 +4,9 @@ import com.hardwareshop.hardware_shop_management_system.entity.SalesOrder;
 import com.hardwareshop.hardware_shop_management_system.service.SalesOrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import com.hardwareshop.hardware_shop_management_system.entity.SalesOrderStatus;
 import org.springframework.web.bind.annotation.*;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -42,6 +44,18 @@ public class SalesOrderController {
         String message = salesOrderService.update(id, salesOrder);
         if (message.equals("The sales order with that id does not exist")) return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("/by-status")
+    public ResponseEntity<List<SalesOrder>> findByStatus(@RequestParam SalesOrderStatus status) {
+        return new ResponseEntity<>(salesOrderService.findByStatus(status), HttpStatus.OK);
+    }
+
+    @GetMapping("/between")
+    public ResponseEntity<List<SalesOrder>> findBetween(@RequestParam String start, @RequestParam String end) {
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+        return new ResponseEntity<>(salesOrderService.findBetweenDates(startDate, endDate), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

@@ -44,6 +44,11 @@ public class CustomerController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @GetMapping("/by-last-name")
+    public ResponseEntity<List<Customer>> findByLastName(@RequestParam String lastName) {
+        return new ResponseEntity<>(customerService.findByLastName(lastName), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable UUID id) {
         String message = customerService.delete(id);

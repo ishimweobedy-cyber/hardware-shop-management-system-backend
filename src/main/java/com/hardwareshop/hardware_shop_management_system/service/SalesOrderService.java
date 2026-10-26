@@ -2,7 +2,9 @@ package com.hardwareshop.hardware_shop_management_system.service;
 
 import com.hardwareshop.hardware_shop_management_system.entity.SalesOrder;
 import com.hardwareshop.hardware_shop_management_system.repository.SalesOrderRepository;
+import com.hardwareshop.hardware_shop_management_system.entity.SalesOrderStatus;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -40,6 +42,14 @@ public class SalesOrderService {
         order.setSalesperson(updated.getSalesperson());
         salesOrderRepository.save(order);
         return "Sales order updated successfully";
+    }
+
+    public List<SalesOrder> findByStatus(SalesOrderStatus status) {
+        return salesOrderRepository.findByStatusOrderByOrderDateAsc(status);
+    }
+
+    public List<SalesOrder> findBetweenDates(LocalDate start, LocalDate end) {
+        return salesOrderRepository.findByOrderDateBetweenOrderByOrderDateAsc(start, end);
     }
 
     public String delete(UUID id) {
