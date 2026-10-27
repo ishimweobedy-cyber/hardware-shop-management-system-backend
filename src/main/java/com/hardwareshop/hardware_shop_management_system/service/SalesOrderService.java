@@ -5,6 +5,8 @@ import com.hardwareshop.hardware_shop_management_system.entity.SalesOrderStatus;
 import com.hardwareshop.hardware_shop_management_system.repository.SalesOrderRepository;
 import com.hardwareshop.hardware_shop_management_system.repository.SalespersonRepository;
 import com.hardwareshop.hardware_shop_management_system.repository.SoldItemRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
@@ -77,6 +79,10 @@ public class SalesOrderService {
 
     public List<SalesOrder> findBetweenDates(LocalDate start, LocalDate end) {
         return salesOrderRepository.findByOrderDateBetweenOrderByOrderDateAsc(start, end);
+    }
+
+    public Page<SalesOrder> getPage(Pageable pageable) {
+        return salesOrderRepository.findAll(pageable);
     }
 
     public List<Object[]> statsByStatus() {
