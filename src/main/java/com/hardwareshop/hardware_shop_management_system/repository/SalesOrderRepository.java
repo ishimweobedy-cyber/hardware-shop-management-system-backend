@@ -2,6 +2,7 @@ package com.hardwareshop.hardware_shop_management_system.repository;
 
 import com.hardwareshop.hardware_shop_management_system.entity.SalesOrder;
 import com.hardwareshop.hardware_shop_management_system.entity.SalesOrderStatus;
+import com.hardwareshop.hardware_shop_management_system.entity.Salesperson;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.time.LocalDate;
 import java.util.List;
@@ -12,4 +13,6 @@ public interface SalesOrderRepository extends JpaRepository<SalesOrder, UUID> {
     List<SalesOrder> findByStatusOrderByOrderDateAsc(SalesOrderStatus status);
 
     List<SalesOrder> findByOrderDateBetweenOrderByOrderDateAsc(LocalDate start, LocalDate end);
+
+    boolean existsBySalespersonAndOrderDateAndStatusNot(Salesperson salesperson, LocalDate orderDate, SalesOrderStatus status);
 }

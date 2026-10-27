@@ -1,10 +1,10 @@
 package com.hardwareshop.hardware_shop_management_system.controller;
 
 import com.hardwareshop.hardware_shop_management_system.entity.SalesOrder;
+import com.hardwareshop.hardware_shop_management_system.entity.SalesOrderStatus;
 import com.hardwareshop.hardware_shop_management_system.service.SalesOrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import com.hardwareshop.hardware_shop_management_system.entity.SalesOrderStatus;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -24,6 +24,10 @@ public class SalesOrderController {
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody SalesOrder salesOrder) {
         String message = salesOrderService.save(salesOrder);
+        if (message.equals("Sales order date cannot be in the past"))
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        if (message.equals("Salesperson already serves an order on that date"))
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
@@ -42,7 +46,18 @@ public class SalesOrderController {
     @PutMapping("/update/{id}")
     public ResponseEntity<String> update(@PathVariable UUID id, @RequestBody SalesOrder salesOrder) {
         String message = salesOrderService.update(id, salesOrder);
-        if (message.equals("The sales order with that id does not exist")) return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        if (message.equals("The sales order with that id does not exist"))
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<String> updateStatus(@PathVariable UUID id, @RequestParam SalesOrderStatus status) {
+        String message = salesOrderService.updateStatus(id, status);
+        if (message.equals("The sales order with that id does not exist"))
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        if (message.startsWith("Cannot change status"))
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
@@ -61,7 +76,8 @@ public class SalesOrderController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable UUID id) {
         String message = salesOrderService.delete(id);
-        if (message.equals("The sales order with that id does not exist")) return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        if (message.equals("The sales order with that id does not exist"))
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

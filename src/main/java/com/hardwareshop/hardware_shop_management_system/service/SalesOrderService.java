@@ -1,8 +1,9 @@
 package com.hardwareshop.hardware_shop_management_system.service;
 
 import com.hardwareshop.hardware_shop_management_system.entity.SalesOrder;
-import com.hardwareshop.hardware_shop_management_system.repository.SalesOrderRepository;
 import com.hardwareshop.hardware_shop_management_system.entity.SalesOrderStatus;
+import com.hardwareshop.hardware_shop_management_system.repository.SalesOrderRepository;
+import com.hardwareshop.hardware_shop_management_system.repository.SalespersonRepository;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
@@ -13,12 +14,21 @@ import java.util.UUID;
 public class SalesOrderService {
 
     private final SalesOrderRepository salesOrderRepository;
+    private final SalespersonRepository salespersonRepository;
 
-    public SalesOrderService(SalesOrderRepository salesOrderRepository) {
+    public SalesOrderService(SalesOrderRepository salesOrderRepository, SalespersonRepository salespersonRepository) {
         this.salesOrderRepository = salesOrderRepository;
+        this.salespersonRepository = salespersonRepository;
     }
 
     public String save(SalesOrder salesOrder) {
+        if (salesOrder.getOrderDate().isBefore(LocalDate.now()))
+            return "Sales order date cannot be in the past";
+        if (salesOrder.getSalesperson() != null &&
+                salesOrderRepository.existsBySalespersonAndOrderDateAndStatusNot(
+                        salesOrder.getSalesperson(), salesOrder.getOrderDate(), SalesOrderStatus.REJECTED))
+            return "Salesperson already serves an order on that date";
+        salesOrder.setStatus(SalesOrderStatus.PLACED);
         salesOrderRepository.save(salesOrder);
         return "Sales order saved successfully";
     }
@@ -42,6 +52,19 @@ public class SalesOrderService {
         order.setSalesperson(updated.getSalesperson());
         salesOrderRepository.save(order);
         return "Sales order updated successfully";
+    }
+
+    public String updateStatus(UUID id, SalesOrderStatus newStatus) {
+        Optional<SalesOrder> existing = salesOrderRepository.findById(id);
+        if (existing.isEmpty()) return "The sales order with that id does not exist";
+        SalesOrder order = existing.get();
+        SalesOrderStatus current = order.getStatus();
+        boolean allowed = (current == SalesOrderStatus.PLACED && (newStatus == SalesOrderStatus.PACKED || newStatus == SalesOrderStatus.REJECTED))
+                || (current == SalesOrderStatus.PACKED && (newStatus == SalesOrderStatus.DELIVERED || newStatus == SalesOrderStatus.REJECTED));
+        if (!allowed) return "Cannot change status from " + current + " to " + newStatus;
+        order.setStatus(newStatus);
+        salesOrderRepository.save(order);
+        return "Sales order status updated successfully";
     }
 
     public List<SalesOrder> findByStatus(SalesOrderStatus status) {
