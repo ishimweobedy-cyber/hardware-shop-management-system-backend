@@ -1,0 +1,220 @@
+{
+  "info": {
+    "name": "hardware-shop-management-system",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "A2 - Save Product Group",
+      "request": { "method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:8080/api/product-groups/save"},
+        "body": {"mode": "raw", "raw": "{\"name\": \"Plumbing\"}"} }
+    },
+    {
+      "name": "A2 - Get All Product Groups",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/product-groups/all"} }
+    },
+    {
+      "name": "A2 - Get Product Group By Id",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/product-groups/00000000-0000-0000-0000-000000000000"} }
+    },
+    {
+      "name": "A2 - Get Product Group By Id (404)",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/product-groups/00000000-0000-0000-0000-000000000000"} }
+    },
+    {
+      "name": "A2 - Save Counter",
+      "request": { "method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:8080/api/counters/save"},
+        "body": {"mode": "raw", "raw": "{\"counterNumber\": 1, \"name\": \"Counter 1\"}"} }
+    },
+    {
+      "name": "A2 - Get All Counters",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/counters/all"} }
+    },
+    {
+      "name": "A2 - Save Salesperson",
+      "request": { "method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:8080/api/salespersons/save"},
+        "body": {"mode": "raw", "raw": "{\"firstName\": \"Alice\", \"lastName\": \"Mutoni\", \"phone\": \"0781000001\", \"counter\": {\"id\": \"COUNTER_ID_HERE\"}}"} }
+    },
+    {
+      "name": "A2 - Get All Salespersons",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/salespersons/all"} }
+    },
+    {
+      "name": "A2 - Save Customer",
+      "request": { "method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:8080/api/customers/save"},
+        "body": {"mode": "raw", "raw": "{\"firstName\": \"Jean\", \"lastName\": \"Ishimwe\", \"phone\": \"0783214567\", \"email\": \"jean@example.com\"}"} }
+    },
+    {
+      "name": "A2 - Get All Customers",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/customers/all"} }
+    },
+    {
+      "name": "A2 - Save Sales Order",
+      "request": { "method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:8080/api/sales-orders/save"},
+        "body": {"mode": "raw", "raw": "{\"orderDate\": \"2026-10-27\", \"reference\": \"REF-001\", \"totalAmount\": 200.0, \"customer\": {\"id\": \"CUSTOMER_ID_HERE\"}, \"salesperson\": {\"id\": \"SALESPERSON_ID_HERE\"}}"} }
+    },
+    {
+      "name": "A2 - Get All Sales Orders",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/sales-orders/all"} }
+    },
+    {
+      "name": "A2 - Delete Sales Order (404)",
+      "request": { "method": "DELETE", "url": {"raw": "http://localhost:8080/api/sales-orders/delete/00000000-0000-0000-0000-000000000000"} }
+    },
+    {
+      "name": "B1 - Customers By Last Name",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/customers/by-last-name?lastName=ishimwe"} }
+    },
+    {
+      "name": "B1 - Customers By Last Name (empty)",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/customers/by-last-name?lastName=unknown"} }
+    },
+    {
+      "name": "B2 - Orders By Status",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/sales-orders/by-status?status=PLACED"} }
+    },
+    {
+      "name": "B3 - Orders Between Dates",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/sales-orders/between?start=2026-10-01&end=2026-10-31"} }
+    },
+    {
+      "name": "C1 - Salespersons By Product Group",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/salespersons/by-product-group?name=plumb"} }
+    },
+    {
+      "name": "C2 - Free Counters",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/counters/free"} }
+    },
+    {
+      "name": "C3 - Unused Product Groups",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/product-groups/unused"} }
+    },
+    {
+      "name": "C4 - Customers Of Salesperson",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/customers/of-salesperson/SALESPERSON_ID_HERE"} }
+    },
+    {
+      "name": "C4 - Customers Of Salesperson (404)",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/customers/of-salesperson/00000000-0000-0000-0000-000000000000"} }
+    },
+    {
+      "name": "D1 - Save Sales Order (past date 400)",
+      "request": { "method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:8080/api/sales-orders/save"},
+        "body": {"mode": "raw", "raw": "{\"orderDate\": \"2026-10-01\", \"reference\": \"REF-PAST\", \"totalAmount\": 100.0, \"customer\": {\"id\": \"CUSTOMER_ID_HERE\"}, \"salesperson\": {\"id\": \"SALESPERSON_ID_HERE\"}}"} }
+    },
+    {
+      "name": "D1 - Save Sales Order (conflict 409)",
+      "request": { "method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:8080/api/sales-orders/save"},
+        "body": {"mode": "raw", "raw": "{\"orderDate\": \"2026-10-27\", \"reference\": \"REF-DUP\", \"totalAmount\": 100.0, \"customer\": {\"id\": \"CUSTOMER_ID_HERE\"}, \"salesperson\": {\"id\": \"SALESPERSON_ID_HERE\"}}"} }
+    },
+    {
+      "name": "D2 - Update Status PLACED to PACKED",
+      "request": { "method": "PATCH", "url": {"raw": "http://localhost:8080/api/sales-orders/ORDER_ID_HERE/status?status=PACKED"} }
+    },
+    {
+      "name": "D2 - Update Status (invalid transition 400)",
+      "request": { "method": "PATCH", "url": {"raw": "http://localhost:8080/api/sales-orders/DELIVERED_ORDER_ID_HERE/status?status=PACKED"} }
+    },
+    {
+      "name": "D2 - Update Status (404)",
+      "request": { "method": "PATCH", "url": {"raw": "http://localhost:8080/api/sales-orders/00000000-0000-0000-0000-000000000000/status?status=PACKED"} }
+    },
+    {
+      "name": "D3 - Add Product Group To Salesperson",
+      "request": { "method": "PUT", "url": {"raw": "http://localhost:8080/api/salespersons/SALESPERSON_ID_HERE/product-groups/PRODUCT_GROUP_ID_HERE"} }
+    },
+    {
+      "name": "D3 - Add Product Group (already has it 409)",
+      "request": { "method": "PUT", "url": {"raw": "http://localhost:8080/api/salespersons/SALESPERSON_ID_HERE/product-groups/PRODUCT_GROUP_ID_HERE"} }
+    },
+    {
+      "name": "D3 - Add Product Group (salesperson 404)",
+      "request": { "method": "PUT", "url": {"raw": "http://localhost:8080/api/salespersons/00000000-0000-0000-0000-000000000000/product-groups/PRODUCT_GROUP_ID_HERE"} }
+    },
+    {
+      "name": "D3 - Add Product Group (product group 404)",
+      "request": { "method": "PUT", "url": {"raw": "http://localhost:8080/api/salespersons/SALESPERSON_ID_HERE/product-groups/00000000-0000-0000-0000-000000000000"} }
+    },
+    {
+      "name": "D4 - Change Counter",
+      "request": { "method": "PATCH", "url": {"raw": "http://localhost:8080/api/salespersons/SALESPERSON_ID_HERE/counter?counterNumber=4"} }
+    },
+    {
+      "name": "D4 - Change Counter (taken 409)",
+      "request": { "method": "PATCH", "url": {"raw": "http://localhost:8080/api/salespersons/SALESPERSON_ID_HERE/counter?counterNumber=1"} }
+    },
+    {
+      "name": "D4 - Change Counter (counter 404)",
+      "request": { "method": "PATCH", "url": {"raw": "http://localhost:8080/api/salespersons/SALESPERSON_ID_HERE/counter?counterNumber=99"} }
+    },
+    {
+      "name": "D4 - Change Counter (salesperson 404)",
+      "request": { "method": "PATCH", "url": {"raw": "http://localhost:8080/api/salespersons/00000000-0000-0000-0000-000000000000/counter?counterNumber=4"} }
+    },
+    {
+      "name": "E1 - Save Sold Item",
+      "request": { "method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:8080/api/sold-items/save?salesOrderId=DELIVERED_ORDER_ID_HERE"},
+        "body": {"mode": "raw", "raw": "{\"itemName\": \"Cement 50kg\", \"remarks\": \"Delivered to site\", \"quantity\": 20}"} }
+    },
+    {
+      "name": "E1 - Save Sold Item (not DELIVERED 400)",
+      "request": { "method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:8080/api/sold-items/save?salesOrderId=PLACED_ORDER_ID_HERE"},
+        "body": {"mode": "raw", "raw": "{\"itemName\": \"Cement 50kg\", \"remarks\": \"Test\", \"quantity\": 5}"} }
+    },
+    {
+      "name": "E1 - Save Sold Item (order 404)",
+      "request": { "method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": {"raw": "http://localhost:8080/api/sold-items/save?salesOrderId=00000000-0000-0000-0000-000000000000"},
+        "body": {"mode": "raw", "raw": "{\"itemName\": \"Cement 50kg\", \"remarks\": \"Test\", \"quantity\": 5}"} }
+    },
+    {
+      "name": "E2 - Sold Items By Customer Phone",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/sold-items/customer/0783214567"} }
+    },
+    {
+      "name": "E3 - Delete Sold Item",
+      "request": { "method": "DELETE", "url": {"raw": "http://localhost:8080/api/sold-items/delete/SOLD_ITEM_ID_HERE"} }
+    },
+    {
+      "name": "E3 - Delete Sold Item (404)",
+      "request": { "method": "DELETE", "url": {"raw": "http://localhost:8080/api/sold-items/delete/00000000-0000-0000-0000-000000000000"} }
+    },
+    {
+      "name": "E3 - Delete Sales Order (has sold items 409)",
+      "request": { "method": "DELETE", "url": {"raw": "http://localhost:8080/api/sales-orders/delete/ORDER_WITH_SOLD_ITEMS_ID_HERE"} }
+    },
+    {
+      "name": "F1 - Stats By Status",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/sales-orders/stats/by-status"} }
+    },
+    {
+      "name": "F2 - Cancel Day",
+      "request": { "method": "PATCH", "url": {"raw": "http://localhost:8080/api/sales-orders/cancel-day?salespersonId=SALESPERSON_ID_HERE&date=2026-10-27"} }
+    },
+    {
+      "name": "F2 - Cancel Day (zero cancelled)",
+      "request": { "method": "PATCH", "url": {"raw": "http://localhost:8080/api/sales-orders/cancel-day?salespersonId=SALESPERSON_ID_HERE&date=2026-11-01"} }
+    },
+    {
+      "name": "+ Dashboard Summary",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/dashboard/summary"} }
+    },
+    {
+      "name": "+ Paginated Sales Orders",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/sales-orders/page?page=0&size=5&sort=orderDate,desc"} }
+    },
+    {
+      "name": "+ Paginated Sales Orders (page 1)",
+      "request": { "method": "GET", "url": {"raw": "http://localhost:8080/api/sales-orders/page?page=1&size=3&sort=orderDate,asc"} }
+    }
+  ]
+}
