@@ -6,6 +6,7 @@ import com.hardwareshop.hardware_shop_management_system.repository.SalesOrderRep
 import com.hardwareshop.hardware_shop_management_system.repository.SalespersonRepository;
 import com.hardwareshop.hardware_shop_management_system.repository.SoldItemRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -76,6 +77,16 @@ public class SalesOrderService {
 
     public List<SalesOrder> findBetweenDates(LocalDate start, LocalDate end) {
         return salesOrderRepository.findByOrderDateBetweenOrderByOrderDateAsc(start, end);
+    }
+
+    public List<Object[]> statsByStatus() {
+        return salesOrderRepository.countByStatus();
+    }
+
+    @Transactional
+    public String cancelDay(UUID salespersonId, LocalDate date) {
+        int count = salesOrderRepository.cancelBySalespersonAndDate(salespersonId, date);
+        return count + " sales orders cancelled";
     }
 
     public String delete(UUID id) {

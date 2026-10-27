@@ -61,6 +61,17 @@ public class SalesOrderController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @GetMapping("/stats/by-status")
+    public ResponseEntity<List<Object[]>> statsByStatus() {
+        return new ResponseEntity<>(salesOrderService.statsByStatus(), HttpStatus.OK);
+    }
+
+    @PatchMapping("/cancel-day")
+    public ResponseEntity<String> cancelDay(@RequestParam UUID salespersonId, @RequestParam String date) {
+        String message = salesOrderService.cancelDay(salespersonId, LocalDate.parse(date));
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
     @GetMapping("/by-status")
     public ResponseEntity<List<SalesOrder>> findByStatus(@RequestParam SalesOrderStatus status) {
         return new ResponseEntity<>(salesOrderService.findByStatus(status), HttpStatus.OK);
