@@ -78,6 +78,8 @@ public class SalesOrderController {
         String message = salesOrderService.delete(id);
         if (message.equals("The sales order with that id does not exist"))
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        if (message.equals("That sales order has sold items, delete them first"))
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

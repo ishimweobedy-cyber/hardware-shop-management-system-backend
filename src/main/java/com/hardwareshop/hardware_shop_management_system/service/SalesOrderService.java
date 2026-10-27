@@ -4,6 +4,7 @@ import com.hardwareshop.hardware_shop_management_system.entity.SalesOrder;
 import com.hardwareshop.hardware_shop_management_system.entity.SalesOrderStatus;
 import com.hardwareshop.hardware_shop_management_system.repository.SalesOrderRepository;
 import com.hardwareshop.hardware_shop_management_system.repository.SalespersonRepository;
+import com.hardwareshop.hardware_shop_management_system.repository.SoldItemRepository;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
@@ -15,10 +16,12 @@ public class SalesOrderService {
 
     private final SalesOrderRepository salesOrderRepository;
     private final SalespersonRepository salespersonRepository;
+    private final SoldItemRepository soldItemRepository;
 
-    public SalesOrderService(SalesOrderRepository salesOrderRepository, SalespersonRepository salespersonRepository) {
+    public SalesOrderService(SalesOrderRepository salesOrderRepository, SalespersonRepository salespersonRepository, SoldItemRepository soldItemRepository) {
         this.salesOrderRepository = salesOrderRepository;
         this.salespersonRepository = salespersonRepository;
+        this.soldItemRepository = soldItemRepository;
     }
 
     public String save(SalesOrder salesOrder) {
@@ -76,7 +79,10 @@ public class SalesOrderService {
     }
 
     public String delete(UUID id) {
-        if (!salesOrderRepository.existsById(id)) return "The sales order with that id does not exist";
+        Optional<SalesOrder> existing = salesOrderRepository.findById(id);
+        if (existing.isEmpty()) return "The sales order with that id does not exist";
+        if (soldItemRepository.existsBySalesOrder(existing.get()))
+            return "That sales order has sold items, delete them first";
         salesOrderRepository.deleteById(id);
         return "Sales order deleted successfully";
     }
