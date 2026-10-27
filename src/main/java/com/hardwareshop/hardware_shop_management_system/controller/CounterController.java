@@ -44,6 +44,11 @@ public class CounterController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @GetMapping("/free")
+    public ResponseEntity<List<Counter>> findFree() {
+        return new ResponseEntity<>(counterService.findFreeCounters(), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable UUID id) {
         String message = counterService.delete(id);

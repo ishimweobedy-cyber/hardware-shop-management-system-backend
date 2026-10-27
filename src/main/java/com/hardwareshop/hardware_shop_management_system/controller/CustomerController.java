@@ -44,6 +44,13 @@ public class CustomerController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @GetMapping("/of-salesperson/{salespersonId}")
+    public ResponseEntity<?> findCustomersOfSalesperson(@PathVariable UUID salespersonId) {
+        Object result = customerService.findCustomersOfSalesperson(salespersonId);
+        if (result instanceof String message) return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @GetMapping("/by-last-name")
     public ResponseEntity<List<Customer>> findByLastName(@RequestParam String lastName) {
         return new ResponseEntity<>(customerService.findByLastName(lastName), HttpStatus.OK);

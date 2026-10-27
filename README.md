@@ -1,1 +1,0 @@
-# hardware-shop-management-system-backend

@@ -2,6 +2,7 @@ package com.hardwareshop.hardware_shop_management_system.service;
 
 import com.hardwareshop.hardware_shop_management_system.entity.Customer;
 import com.hardwareshop.hardware_shop_management_system.repository.CustomerRepository;
+import com.hardwareshop.hardware_shop_management_system.repository.SalespersonRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +12,11 @@ import java.util.UUID;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final SalespersonRepository salespersonRepository;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, SalespersonRepository salespersonRepository) {
         this.customerRepository = customerRepository;
+        this.salespersonRepository = salespersonRepository;
     }
 
     public String save(Customer customer) {
@@ -39,6 +42,11 @@ public class CustomerService {
         customer.setEmail(updated.getEmail());
         customerRepository.save(customer);
         return "Customer updated successfully";
+    }
+
+    public Object findCustomersOfSalesperson(UUID salespersonId) {
+        if (!salespersonRepository.existsById(salespersonId)) return "The salesperson with that id does not exist";
+        return customerRepository.findCustomersOfSalesperson(salespersonId);
     }
 
     public List<Customer> findByLastName(String lastName) {

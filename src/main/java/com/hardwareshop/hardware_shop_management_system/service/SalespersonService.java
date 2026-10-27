@@ -42,6 +42,10 @@ public class SalespersonService {
         return "Salesperson updated successfully";
     }
 
+    public List<Salesperson> findByProductGroupName(String name) {
+        return salespersonRepository.findByProductGroupName(name);
+    }
+
     public String delete(UUID id) {
         if (!salespersonRepository.existsById(id)) return "The salesperson with that id does not exist";
         salespersonRepository.deleteById(id);

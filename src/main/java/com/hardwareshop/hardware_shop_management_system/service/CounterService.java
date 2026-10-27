@@ -39,6 +39,10 @@ public class CounterService {
         return "Counter updated successfully";
     }
 
+    public List<Counter> findFreeCounters() {
+        return counterRepository.findFreeCounters();
+    }
+
     public String delete(UUID id) {
         if (!counterRepository.existsById(id)) return "The counter with that id does not exist";
         counterRepository.deleteById(id);

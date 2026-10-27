@@ -44,6 +44,11 @@ public class SalespersonController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @GetMapping("/by-product-group")
+    public ResponseEntity<List<Salesperson>> findByProductGroup(@RequestParam String name) {
+        return new ResponseEntity<>(salespersonService.findByProductGroupName(name), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable UUID id) {
         String message = salespersonService.delete(id);

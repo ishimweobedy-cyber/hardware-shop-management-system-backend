@@ -44,6 +44,11 @@ public class ProductGroupController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @GetMapping("/unused")
+    public ResponseEntity<List<ProductGroup>> findUnused() {
+        return new ResponseEntity<>(productGroupService.findUnused(), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable UUID id) {
         String message = productGroupService.delete(id);

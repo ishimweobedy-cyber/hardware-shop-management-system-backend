@@ -38,6 +38,10 @@ public class ProductGroupService {
         return "Product group updated successfully";
     }
 
+    public List<ProductGroup> findUnused() {
+        return productGroupRepository.findUnusedProductGroups();
+    }
+
     public String delete(UUID id) {
         if (!productGroupRepository.existsById(id)) return "The product group with that id does not exist";
         productGroupRepository.deleteById(id);
