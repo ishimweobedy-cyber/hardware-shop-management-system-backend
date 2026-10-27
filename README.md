@@ -3,6 +3,8 @@
 **Name:** Ishimwe Obed  
 **Student ID:** 26185  
 **Project:** Hardware Shop Management System  
+**Course:** Web Technology and Internet
+
 
 ---
 
@@ -10,7 +12,7 @@
 
 - Java 17+
 - Maven 3.6+
-- PostgreSQL 14+
+- PostgreSQL 17+
 
 ---
 
@@ -31,7 +33,7 @@ Open `src/main/resources/application.properties` and set your credentials:
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/hardware_shop_db
 spring.datasource.username=postgres
-spring.datasource.password=your_password
+spring.datasource.password=admin
 ```
 
 ---
@@ -46,7 +48,7 @@ The server starts on `http://localhost:8080`.
 
 ---
 
-## API Summary
+## APIs Summary
 
 | ID  | Method | Endpoint                                              | Description                        |
 |-----|--------|-------------------------------------------------------|------------------------------------|
