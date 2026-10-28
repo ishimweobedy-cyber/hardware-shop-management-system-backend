@@ -20,7 +20,7 @@ public class Salesperson {
     @JoinColumn(name = "counter_id", nullable = true)
     private Counter counter;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "salesperson_product_group",
         joinColumns = @JoinColumn(name = "salespersons_id"),
