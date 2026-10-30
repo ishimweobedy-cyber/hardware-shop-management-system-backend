@@ -25,18 +25,6 @@ CREATE DATABASE hardware_shop_db;
 
 ---
 
-## Configure Credentials
-
-Open `src/main/resources/application.properties` and set your credentials:
-
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/hardware_shop_db
-spring.datasource.username=postgres
-spring.datasource.password=admin
-```
-
----
-
 ## How to Run
 
 ```bash
@@ -47,27 +35,27 @@ The server starts on `http://localhost:8080`.
 
 ---
 
-## Seed Data Used During Testing
+## Seed Data Used in Postman
 
 ### Product Groups
 
-| ID | Name |
-|----|------|
-| 23cc3e8c-52c6-4721-88c5-0377a6d47d79 | Plumbing |
-| 3bb6c14d-8863-43ad-a311-7354d22f8c81 | Electrical |
-| 8d255c93-3e9e-4cd9-993d-04b793587b3d | Paints |
-| c600038f-0168-42e9-a311-27076a2f054c | Hand Tools |
+| ID | Name | Notes |
+|----|------|-------|
+| 23cc3e8c-52c6-4721-88c5-0377a6d47d79 | Plumbing | Assigned to Agasaro Aline |
+| 3bb6c14d-8863-43ad-a311-7354d22f8c81 | Electrical | Assigned to Agasaro Aline |
+| 8d255c93-3e9e-4cd9-993d-04b793587b3d | Paints | Assigned to Ishimwe Obed |
+| c600038f-0168-42e9-a311-27076a2f054c | Hand Tools | **Unused initially** (returned by endpoint C3; assigned to Melissa later in D3) |
 
 ---
 
 ### Counters
 
-| ID | Number | Name |
-|----|--------|------|
-| e49df622-552a-4ea8-a7d2-a28d0bbcfcc6 | 1 | Counter One |
-| 068af84c-3c79-4e27-b8b4-e023f3cfed65 | 2 | Counter Two |
-| 6623cf9c-0317-4ef3-96c6-2dc3549c028c | 3 | Counter Three |
-| 8c9320ba-7a3f-4c4d-a29c-e51769e3aa1c | 4 | Counter Four |
+| ID | Number | Name | Notes |
+|----|--------|------|-------|
+| e49df622-552a-4ea8-a7d2-a28d0bbcfcc6 | 1 | Counter One | Assigned to Agasaro Aline |
+| 068af84c-3c79-4e27-b8b4-e023f3cfed65 | 2 | Counter Two | Assigned to Ishimwe Obed |
+| 6623cf9c-0317-4ef3-96c6-2dc3549c028c | 3 | Counter Three | Assigned to Ishimwe Melissa |
+| 8c9320ba-7a3f-4c4d-a29c-e51769e3aa1c | 4 | Counter Four | **Free initially** (returned by endpoint C2; Melissa moves here in D4) |
 
 ---
 
@@ -77,7 +65,7 @@ The server starts on `http://localhost:8080`.
 |----|-----------|-----------|-------|---------|----------------|
 | 2633a94b-4ced-4476-af6b-125113fb87bb | Agasaro | Aline | 0788454675 | Counter One | Plumbing, Electrical |
 | 76cc3c20-b116-434e-b535-037374686093 | Ishimwe | Obed | 0788377914 | Counter Two | Paints |
-| ce7f87ae-a718-4cfe-8f75-636d6a335c06 | Ishimwe | Melissa | 0780138022 | Counter Three | Hand Tools (added via D3) |
+| ce7f87ae-a718-4cfe-8f75-636d6a335c06 | Ishimwe | Melissa | 0780138022 | Counter Three | None (initial seed state; Hand Tools assigned later via D3) |
 
 ---
 
@@ -95,18 +83,26 @@ The server starts on `http://localhost:8080`.
 
 ### Sales Orders
 
-| ID | Reference | Date | Status | Total | Customer | Salesperson |
-|----|-----------|------|--------|-------|----------|-------------|
-| 907c8a34-1761-4e69-b5af-ce83af62c204 | REF-001 | 2026-10-28 | DELIVERED | 160.0 | Jean Ishimwe | Agasaro Aline |
-| aa3f0320-0c19-477e-9e41-f19181842329 | REF-002 | 2026-10-29 | DELIVERED | 200.0 | Jean Ishimwe | Ishimwe Obed |
-| 16e967c9-e5d7-409d-87e7-428d3d2f3b1a | REF-003 | 2026-10-30 | REJECTED | 300.0 | Jean Ishimwe | Agasaro Aline |
-| 11e5159b-f2ab-4909-a157-47f5d774517d | REF-004 | 2026-10-31 | REJECTED | 120.0 | Marie Ishimwe | Agasaro Aline |
-| b3acbc0a-168f-438a-8d46-24cc0562af7b | REF-005 | 2026-11-01 | PLACED | 180.0 | Peter Mugisha | Ishimwe Obed |
-| 420dbd82-bcbf-4f09-be49-fe580437d826 | REF-006 | 2026-11-02 | PLACED | 220.0 | Peter Mugisha | Ishimwe Melissa |
-| 3c503427-5b2b-4482-80e5-f0c11b697387 | REF-007 | 2026-11-03 | PLACED | 400.0 | Grace Uwera | Agasaro Aline |
-| 2b1ab278-b371-4e08-bdfe-ad9392437fe3 | REF-008 | 2026-11-04 | PLACED | 250.0 | Grace Uwera | Ishimwe Obed |
-| 5d05779d-958d-4f1e-8213-663ad6cb4034 | REF-009 | 2026-11-05 | PLACED | 310.0 | David Nkusi | Ishimwe Melissa |
-| a7600de2-a8f6-4a26-b376-348847e0c5bd | REF-010 | 2026-11-06 | PLACED | 175.0 | David Nkusi | Agasaro Aline |
+| ID | Reference | Date | Status | Total | Customer | Salesperson | Notes |
+|----|-----------|------|--------|-------|----------|-------------|-------|
+| 907c8a34-1761-4e69-b5af-ce83af62c204 | REF-001 | 2026-10-20 | DELIVERED | 160.0 | Jean Ishimwe | Agasaro Aline | Same salesperson on 2026-10-20 |
+| aa3f0320-0c19-477e-9e41-f19181842329 | REF-002 | 2026-10-21 | DELIVERED | 200.0 | Jean Ishimwe | Ishimwe Obed | Has sold item |
+| 16e967c9-e5d7-409d-87e7-428d3d2f3b1a | REF-003 | 2026-10-20 | REJECTED  | 300.0 | Jean Ishimwe | Agasaro Aline | Same salesperson on 2026-10-20 (REJECTED) |
+| 11e5159b-f2ab-4909-a157-47f5d774517d | REF-004 | 2026-10-22 | REJECTED  | 120.0 | Marie Ishimwe | Agasaro Aline | REJECTED order (cannot attach sold items) |
+| b3acbc0a-168f-438a-8d46-24cc0562af7b | REF-005 | 2026-10-23 | PLACED    | 180.0 | Peter Mugisha | Ishimwe Obed | Active order |
+| 420dbd82-bcbf-4f09-be49-fe580437d826 | REF-006 | 2026-10-24 | PLACED    | 220.0 | Peter Mugisha | Ishimwe Melissa | Active order |
+| 3c503427-5b2b-4482-80e5-f0c11b697387 | REF-007 | 2026-10-25 | PLACED    | 400.0 | Grace Uwera | Agasaro Aline | Active order |
+| 2b1ab278-b371-4e08-bdfe-ad9392437fe3 | REF-008 | 2026-10-26 | PLACED    | 250.0 | Grace Uwera | Ishimwe Obed | Active order |
+| 5d05779d-958d-4f1e-8213-663ad6cb4034 | REF-009 | 2026-10-27 | PLACED    | 310.0 | David Nkusi | Ishimwe Melissa | Active order |
+| a7600de2-a8f6-4a26-b376-348847e0c5bd | REF-010 | 2026-10-27 | PLACED    | 175.0 | David Nkusi | Agasaro Aline | Target for F2 cancel-day test on 2026-10-27 |
+---
+
+### Sold Items
+
+| ID | Item Name | Quantity | Remarks | Sold Date | Sales Order | Customer Phone |
+|----|-----------|----------|---------|-----------|-------------|----------------|
+| be92e47e-df4a-40c6-9d5b-b7fa2f201da1 | Cement 50kg | 20 | Delivered to site | 2026-10-20 | REF-001 (DELIVERED) | 0786999221 |
+| edce0672-a053-41d5-864e-7c08b658ac99 | Paint Brush | 5 | Standard delivery | 2026-10-21 | REF-002 (DELIVERED) | 0786999221 |
 
 ---
 
@@ -157,3 +153,9 @@ The server starts on `http://localhost:8080`.
 | F2  | PATCH  | /api/sales-orders/cancel-day?salespersonId=&date=     | Bulk cancel orders for a day       |
 | +   | GET    | /api/dashboard/summary                                | Dashboard summary                  |
 | +   | GET    | /api/sales-orders/page?page=&size=&sort=              | Paginated sales orders             |
+
+
+
+
+
+
