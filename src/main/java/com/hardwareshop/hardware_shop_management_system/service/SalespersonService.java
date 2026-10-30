@@ -27,6 +27,9 @@ public class SalespersonService {
     }
 
     public String save(Salesperson salesperson) {
+        if (salesperson.getCounter() != null && salespersonRepository.existsByCounter(salesperson.getCounter())) {
+            return "That counter is taken by another salesperson";
+        }
         salespersonRepository.save(salesperson);
         return "Salesperson saved successfully";
     }
@@ -46,8 +49,16 @@ public class SalespersonService {
         sp.setFirstName(updated.getFirstName());
         sp.setLastName(updated.getLastName());
         sp.setPhone(updated.getPhone());
-        sp.setCounter(updated.getCounter());
-        sp.setProductGroups(updated.getProductGroups());
+        if (updated.getCounter() != null) {
+            Counter newCounter = updated.getCounter();
+            if (salespersonRepository.existsByCounter(newCounter) && (sp.getCounter() == null || !newCounter.getId().equals(sp.getCounter().getId()))) {
+                return "That counter is taken by another salesperson";
+            }
+            sp.setCounter(newCounter);
+        }
+        if (updated.getProductGroups() != null) {
+            sp.setProductGroups(updated.getProductGroups());
+        }
         salespersonRepository.save(sp);
         return "Salesperson updated successfully";
     }

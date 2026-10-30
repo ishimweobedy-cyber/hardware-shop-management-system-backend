@@ -22,6 +22,8 @@ public class SalespersonController {
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody Salesperson salesperson) {
         String message = salespersonService.save(salesperson);
+        if (message.equals("That counter is taken by another salesperson"))
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
@@ -42,6 +44,8 @@ public class SalespersonController {
         String message = salespersonService.update(id, salesperson);
         if (message.equals("The salesperson with that id does not exist"))
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        if (message.equals("That counter is taken by another salesperson"))
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
