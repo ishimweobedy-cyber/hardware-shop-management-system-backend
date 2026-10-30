@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "17f1df6d-b8c0-43e2-a19d-d5e694670300",
-    "name": "hardware-shop-management-system",
+    "name": "hardware-shop-management-system-midterm",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "58558807",
     "_collection_link": "https://go.postman.co/collection/58558807-17f1df6d-b8c0-43e2-a19d-d5e694670300?source=collection_link"
@@ -110,7 +110,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{ \"name\": \"Electrical\" }\r\n",
+          "raw": "{ \"name\": \"Hand Tools\" }\r\n",
           "options": {
             "raw": {
               "language": "json"
@@ -155,28 +155,6 @@
             "api",
             "product-groups",
             "all"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "A2 - Delete Product Group",
-      "request": {
-        "method": "DELETE",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/product-groups/delete/6b0e2e61-d31c-4013-8bdd-58bb03a1fc9e",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "product-groups",
-            "delete",
-            "6b0e2e61-d31c-4013-8bdd-58bb03a1fc9e"
           ]
         }
       },
@@ -281,6 +259,28 @@
             "product-groups",
             "update",
             "00000000-0000-0000-0000-000000000000"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "A2 - Delete Product Group",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/product-groups/delete/6b0e2e61-d31c-4013-8bdd-58bb03a1fc9e",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "product-groups",
+            "delete",
+            "6b0e2e61-d31c-4013-8bdd-58bb03a1fc9e"
           ]
         }
       },
@@ -421,6 +421,36 @@
       "response": []
     },
     {
+      "name": "A2 - Save Salesperson (counter conflict 409)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/salespersons/save",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "salespersons",
+            "save"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"firstName\": \"Test\",\n    \"lastName\": \"Conflict\",\n    \"phone\": \"0789000111\",\n    \"counter\": {\n        \"id\": \"e49df622-552a-4ea8-a7d2-a28d0bbcfcc6\"\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
       "name": "A2 - Get All Salespersons",
       "request": {
         "method": "GET",
@@ -437,6 +467,37 @@
             "salespersons",
             "all"
           ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "A2 - Update Salesperson (counter conflict 409)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/salespersons/update/ce7f87ae-a718-4cfe-8f75-636d6a335c06",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "salespersons",
+            "update",
+            "ce7f87ae-a718-4cfe-8f75-636d6a335c06"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"firstName\": \"Ishimwe\",\n    \"lastName\": \"Melissa\",\n    \"phone\": \"0780138022\",\n    \"counter\": {\n        \"id\": \"e49df622-552a-4ea8-a7d2-a28d0bbcfcc6\"\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
         }
       },
       "response": []
@@ -499,7 +560,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{ \"orderDate\": \"2026-11-06\", \"reference\": \"REF-010\", \"totalAmount\": 175.0, \"customer\": { \"id\": \"e23683e7-ee50-45da-ab9d-d5a745c0c83f\" }, \"salesperson\": { \"id\": \"2633a94b-4ced-4476-af6b-125113fb87bb\" } }\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+          "raw": "{\n    \"orderDate\": \"2026-11-15\",\n    \"reference\": \"REF-NEW\",\n    \"totalAmount\": 160,\n    \"customer\": {\n        \"id\": \"922415ca-fc39-4628-b818-64b4c1c1dfe4\"\n    },\n    \"salesperson\": {\n        \"id\": \"2633a94b-4ced-4476-af6b-125113fb87bb\"\n    }\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -698,7 +759,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/api/sales-orders/between?start=2026-10-28&end=2026-10-31",
+          "raw": "http://localhost:8080/api/sales-orders/between?start=2026-10-01&end=2026-10-31",
           "protocol": "http",
           "host": [
             "localhost"
@@ -712,7 +773,7 @@
           "query": [
             {
               "key": "start",
-              "value": "2026-10-28"
+              "value": "2026-10-01"
             },
             {
               "key": "end",
@@ -815,6 +876,28 @@
       "response": []
     },
     {
+      "name": "C4 - Customers Of Salesperson (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/customers/of-salesperson/00000000-0000-0000-0000-000000000000",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "customers",
+            "of-salesperson",
+            "00000000-0000-0000-0000-000000000000"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "D1 - Save Sales Order (past date 400)",
       "request": {
         "method": "POST",
@@ -845,13 +928,43 @@
       "response": []
     },
     {
+      "name": "D1 - Save Sales Order (missing date 400)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/sales-orders/save",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "sales-orders",
+            "save"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"reference\": \"REF-NODATE\",\n    \"totalAmount\": 100,\n    \"customer\": {\n        \"id\": \"922415ca-fc39-4628-b818-64b4c1c1dfe4\"\n    },\n    \"salesperson\": {\n        \"id\": \"2633a94b-4ced-4476-af6b-125113fb87bb\"\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
       "name": "D1 - Save Sales Order (conflict 409)",
       "request": {
         "method": "POST",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"orderDate\": \"2026-10-28\",\r\n    \"reference\": \"REF-DUP\",\r\n    \"totalAmount\": 100.0,\r\n    \"customer\": { \"id\": \"9aae46ab-f3f6-4588-a1de-a2e022bebf56\" },\r\n    \"salesperson\": { \"id\": \"2633a94b-4ced-4476-af6b-125113fb87bb\" }\r\n}\r\n",
+          "raw": "{\n    \"orderDate\": \"2026-11-15\",\n    \"reference\": \"REF-DUP\",\n    \"totalAmount\": 100,\n    \"customer\": {\n        \"id\": \"9aae46ab-f3f6-4588-a1de-a2e022bebf56\"\n    },\n    \"salesperson\": {\n        \"id\": \"2633a94b-4ced-4476-af6b-125113fb87bb\"\n    }\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1022,6 +1135,29 @@
             "00000000-0000-0000-0000-000000000000",
             "product-groups",
             "c600038f-0168-42e9-a311-27076a2f054c"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D3 - Add Product Group (product group 404)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/salespersons/ce7f87ae-a718-4cfe-8f75-636d6a335c06/product-groups/00000000-0000-0000-0000-000000000000",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "salespersons",
+            "ce7f87ae-a718-4cfe-8f75-636d6a335c06",
+            "product-groups",
+            "00000000-0000-0000-0000-000000000000"
           ]
         }
       },
@@ -1284,6 +1420,50 @@
       "response": []
     },
     {
+      "name": "E2 - Sold Items By Customer Phone",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/sold-items/customer/0786999221",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "sold-items",
+            "customer",
+            "0786999221"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "E2 - Sold Items By Customer Phone (not found)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/sold-items/customer/0000000000",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "sold-items",
+            "customer",
+            "0000000000"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "E3 - Delete Sold Item",
       "request": {
         "method": "DELETE",
@@ -1309,6 +1489,28 @@
             "sold-items",
             "delete",
             "026882c8-41e6-427a-9779-679545a39ce9"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "E3 - Delete Sold Item (404)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/sold-items/delete/00000000-0000-0000-0000-000000000000",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "sold-items",
+            "delete",
+            "00000000-0000-0000-0000-000000000000"
           ]
         }
       },
@@ -1364,7 +1566,7 @@
         "method": "PATCH",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/api/sales-orders/cancel-day?salespersonId=2633a94b-4ced-4476-af6b-125113fb87bb&date=2026-10-31",
+          "raw": "http://localhost:8080/api/sales-orders/cancel-day?salespersonId=2633a94b-4ced-4476-af6b-125113fb87bb&date=2026-10-27",
           "protocol": "http",
           "host": [
             "localhost"
@@ -1382,7 +1584,7 @@
             },
             {
               "key": "date",
-              "value": "2026-10-31"
+              "value": "2026-10-27"
             }
           ]
         }
