@@ -28,7 +28,7 @@ public class SalesOrderController {
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody SalesOrder salesOrder) {
         String message = salesOrderService.save(salesOrder);
-        if (message.equals("Sales order date cannot be in the past"))
+        if (message.equals("Order date is required") || message.equals("Sales order date cannot be in the past"))
             return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
         if (message.equals("Salesperson already serves an order on that date"))
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);

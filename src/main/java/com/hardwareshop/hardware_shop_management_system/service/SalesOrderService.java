@@ -28,6 +28,8 @@ public class SalesOrderService {
     }
 
     public String save(SalesOrder salesOrder) {
+        if (salesOrder.getOrderDate() == null)
+            return "Order date is required";
         if (salesOrder.getOrderDate().isBefore(LocalDate.now()))
             return "Sales order date cannot be in the past";
         if (salesOrder.getSalesperson() != null &&
@@ -51,11 +53,21 @@ public class SalesOrderService {
         Optional<SalesOrder> existing = salesOrderRepository.findById(id);
         if (existing.isEmpty()) return "The sales order with that id does not exist";
         SalesOrder order = existing.get();
-        order.setOrderDate(updated.getOrderDate());
-        order.setReference(updated.getReference());
-        order.setTotalAmount(updated.getTotalAmount());
-        order.setCustomer(updated.getCustomer());
-        order.setSalesperson(updated.getSalesperson());
+        if (updated.getOrderDate() != null) {
+            order.setOrderDate(updated.getOrderDate());
+        }
+        if (updated.getReference() != null) {
+            order.setReference(updated.getReference());
+        }
+        if (updated.getTotalAmount() > 0) {
+            order.setTotalAmount(updated.getTotalAmount());
+        }
+        if (updated.getCustomer() != null) {
+            order.setCustomer(updated.getCustomer());
+        }
+        if (updated.getSalesperson() != null) {
+            order.setSalesperson(updated.getSalesperson());
+        }
         salesOrderRepository.save(order);
         return "Sales order updated successfully";
     }
